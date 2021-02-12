@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/dtd//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ylf.dao.IndexMapper">
+    <select id="queryAllUser" resultType="com.ylf.pojo.User">
+        select *
+        from tb_user;
+    </select>
+
+    <select id="queryUserInfoByUserName" resultType="com.ylf.pojo.UserInfo">
+        select *
+        from tb_user_info where userName=#{userName};
+    </select>
+    
+    <update id="updateUserInfo" parameterType="com.ylf.pojo.UserInfo">
+        update tb_user_info
+        set userNickName=#{userNickName},userAge=#{userAge},userGender=#{userGender},
+                userSign=#{userSign}
+            <if test="userBirthday != '' and userBirthday != null">
+                ,userBirthday=#{userBirthday}
+            </if>
+                
+            
+        where userName=#{userName};
+    </update>
+
+    <update id="updateUserFace">
+        update tb_user_info
+        set userFaceUuid = #{userFaceUuid}
+        where userName=#{userName};
+    </update>
+
+
+</mapper>

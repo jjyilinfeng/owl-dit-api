@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/dtd//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ylf.dao.BookMapper">
+
+    <select id="checkLogin" resultType="com.ylf.pojo.User">
+
+        select userId,userName,userPassword,userEmail,userType,userLoginIp,userIp
+        from tb_user
+        join tb_user_ip on tb_user_ip.userNameForIp=tb_user.userName
+        where tb_user.userName=#{userName} and tb_user.userPassword=#{userPassword}
+    </select>
+
+    <update id="updateUserInf" parameterType="com.ylf.pojo.User">
+        update tb_user
+        set userName=#{userName}, userPassword=#{userPassword}, userLoginIp=#{userLoginIp},
+            userEmail=#{userEmail}, userLoginTime=#{userLoginTime}
+        where userId=${userId};
+    </update>
+
+    <select id="queryUserInfoByName" resultType="com.ylf.pojo.User">
+        select *
+        from tb_user where userName=#{userName};
+    </select>
+
+    <select id="checkRename" parameterType="String" resultType="int">
+        select userId from tb_user where userName=#{userName}
+    </select>
+
+    <select id="checkReEmail" parameterType="String" resultType="Integer">
+        select userId from tb_user where userEmail=#{userEmail}
+    </select>
+
+    <insert id="insertUser" parameterType="com.ylf.pojo.User">
+        insert into tb_user (userName, userPassword, userEmail, userLoginIp, userType, userLoginTime)
+        values (#{userName},#{userPassword},#{userEmail},#{userIp},'user',#{userLoginTime})
+    </insert>
+
+    <insert id="initUserInfo" parameterType="String">
+        insert into tb_user_info (userName, userNickName, userGender, userAge, userBirthday, userSign, userFaceUuid)
+        values (#{userName},'','','','','','default.png')
+    </insert>
+    
+    <insert id="initUserIndex" parameterType="String">
+        insert into tb_user_index (indexUserName, indexLike, indexVisit, indexMessage)
+        values (#{userName},0,0,0)
+    </insert>
+
+    <insert id="insertUserIp">
+        insert into tb_user_ip (userNameForIp, userIp)
+        values (#{userNameForIp},#{userIp})
+    </insert>
+
+</mapper>
