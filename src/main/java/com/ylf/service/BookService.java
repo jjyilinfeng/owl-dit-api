@@ -1,6 +1,7 @@
 package com.ylf.service;
 
 import com.ylf.pojo.User;
+import com.ylf.pojo.UserIp;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -31,6 +32,13 @@ public interface BookService {
      * @return 用户数据
      */
     User queryUserInfoByName(String userName);
+
+    /**
+     * 根据用户名返还用户IP
+     * @param userName 用户名
+     * @return 用户IP
+     */
+    List<UserIp> queryUserIpByName(String userName);
 
     /**
      * 检查是否重名
@@ -65,6 +73,12 @@ public interface BookService {
      * @param userIp IP
      */
     void insertUserIp(String userNameForIp, String userIp);
+
+    /**
+     * 初始用户主页
+     * @param userName 用户名
+     */
+    void insertUserIndex(@Param("userName")String userName);
 
 
     /**

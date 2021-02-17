@@ -2,6 +2,7 @@ package com.ylf.service;
 
 import com.ylf.dao.BookMapper;
 import com.ylf.pojo.User;
+import com.ylf.pojo.UserIp;
 import com.ylf.util.Functions;
 
 import java.util.List;
@@ -35,6 +36,11 @@ public class BookServiceImpl  implements BookService{
     }
 
     @Override
+    public List<UserIp> queryUserIpByName(String userName) {
+        return bookMapper.queryUserIpByName(userName);
+    }
+
+    @Override
     public Integer checkRename(String userName) {
         return bookMapper.checkRename(userName);
     }
@@ -57,6 +63,11 @@ public class BookServiceImpl  implements BookService{
     @Override
     public void insertUserIp(String userNameForIp, String userIp) {
         bookMapper.insertUserIp(userNameForIp,userIp);
+    }
+
+    @Override
+    public void insertUserIndex(String userName) {
+        bookMapper.insertUserIndex(userName);
     }
 
     @Override

@@ -3,14 +3,110 @@
         PUBLIC "-//mybatis.org/dtd//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ylf.dao.IndexMapper">
+
+    <cache  eviction="LRU" flushInterval="200000" readOnly="true" size="1024" />
+
+    <insert id="insertSearchWord">
+        insert into tb_search (searchWord, searchFrequency)
+        values (#{searchWord},1)
+    </insert>
+
+    <insert id="insertFollow">
+        insert into tb_concern (concernUserName, concernByUserName)
+        values (#{concernUserName},#{concernByUserName})
+    </insert>
+
     <select id="queryAllUser" resultType="com.ylf.pojo.User">
         select *
-        from tb_user;
+        from tb_user
     </select>
 
     <select id="queryUserInfoByUserName" resultType="com.ylf.pojo.UserInfo">
         select *
-        from tb_user_info where userName=#{userName};
+        from tb_user_info where userName=#{userName}
+    </select>
+
+    <select id="queryUserConcernInfoByUserName" resultType="java.util.Map">
+        select * from tb_concern
+        join tb_user_info on concernByUserName=userName
+        where concernUserName=#{userName}
+    </select>
+
+    <select id="queryUserByConcernInfoByUserName" resultType="java.util.Map">
+        select * from tb_concern
+        join tb_user_info on concernUserName=userName
+        where concernByUserName=#{userName}
+    </select>
+
+
+
+    <select id="queryUserConcernCountByUserName" resultType="int">
+        select count(concernId) from tb_concern where concernUserName=#{userName}
+    </select>
+
+    <select id="queryUserFanCountByUserName" resultType="int">
+        select count(concernId) from tb_concern where concernByUserName=#{userName}
+    </select>
+
+    <select id="queryUserDitsByUserName" resultType="int">
+        select count(ditId)
+        from tb_dit where ditUserName=#{userName}
+    </select>
+
+    <select id="queryPraiseCountByUserName" resultType="int">
+        select count(*) from tb_dit_praise
+        join tb_dit td on tb_dit_praise.ditUuid = td.ditUuid
+        where ditUserName=#{userName} and ditPraiseUserName != #{userName}
+    </select>
+
+    <select id="queryArticleCountByUserName" resultType="int">
+        select count(*)
+        from tb_text where textUserName=#{userName};
+    </select>
+
+    <select id="queryUserConcernWhether" resultType="int">
+        select count(concernId)
+        from tb_concern
+        where concernUserName=#{userConcernName} and concernByUserName=#{userByConcernName}
+    </select>
+
+    <select id="querySearchKeyWord" resultType="java.util.Map">
+        SELECT * FROM tb_search
+        ORDER BY searchFrequency desc,CHAR_LENGTH(searchWord) desc LIMIT 0,10
+    </select>
+
+    <select id="queryUserIndexInfoByUserName" resultType="java.util.Map">
+        select *
+        from tb_user_index where indexUserName=#{userName};
+    </select>
+
+    <select id="queryWeekDitInfoByUserName" resultType="java.util.Map">
+        SELECT ditDateTime, count(*) as ditCount FROM tb_dit
+        where ditUserName=#{userName} and DATEDIFF(ditDateTime,now()) &lt;= 7
+        group by DATEDIFF(ditDateTime,now())
+    </select>
+
+    <select id="searchUser" resultType="com.ylf.pojo.UserInfo">
+        select *
+        from tb_user_info where LOWER(tb_user_info.userNickName) like LOWER(concat('%',#{searchWord},'%'))
+            or LOWER(tb_user_info.userName) like LOWER(concat('%',#{searchWord},'%'))
+    </select>
+
+
+    <select id="searchDit" resultType="java.util.Map">
+        select *
+        from tb_dit join tb_user_info on tb_user_info.userName=tb_dit.ditUserName
+        where replace(ditMessage,'img src=\"http://localhost:8088/','') like concat('%',#{searchWord},'%')
+    </select>
+
+    
+    <select id="searchKeyWordRetrieval" resultType="java.util.Map">
+        SELECT searchId FROM `tb_search`
+        where #{searchWord} like CONCAT('%',searchWord,'%')
+          and CHAR_LENGTH(searchWord) &gt; 1 and CHAR_LENGTH(searchWord) &lt; 11
+          or #{searchWord}=searchWord
+        order by CHAR_LENGTH(searchWord) desc
+        limit 0,1
     </select>
     
     <update id="updateUserInfo" parameterType="com.ylf.pojo.UserInfo">
@@ -20,16 +116,31 @@
             <if test="userBirthday != '' and userBirthday != null">
                 ,userBirthday=#{userBirthday}
             </if>
-                
-            
-        where userName=#{userName};
+        where userName=#{userName}
     </update>
 
     <update id="updateUserFace">
         update tb_user_info
         set userFaceUuid = #{userFaceUuid}
-        where userName=#{userName};
+        where userName=#{userName}
     </update>
+
+    <update id="updateSearchWord">
+        update tb_search
+        set searchFrequency = searchFrequency+1
+        where searchId=#{searchId}
+    </update>
+
+    <update id="updateUserIndexImg">
+        update tb_user_index
+        set indexBGIUuid = #{indexBGIUuid}
+        where indexUserName=#{indexUserName};
+    </update>
+
+    <delete id="deleteFollow">
+        delete from tb_concern
+        where concernByUserName=#{concernByUserName} and concernUserName=#{concernUserName}
+    </delete>
 
 
 </mapper>

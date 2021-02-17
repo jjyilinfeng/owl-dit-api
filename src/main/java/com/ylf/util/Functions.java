@@ -12,6 +12,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
+import java.util.UUID;
 
 /**
  * @author Master 2021/2/8
@@ -35,6 +36,16 @@ public class Functions {
         DateFormat dateFormat = new SimpleDateFormat(pattern);
         Date date = new Date();
         return dateFormat.format(date);
+    }
+
+    public static String getNowTime(){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
+    public static String getUuid(){
+        return UUID.randomUUID().toString();
     }
 
     public static void sendEmail(String checkCode, String email){

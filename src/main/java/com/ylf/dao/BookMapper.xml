@@ -16,12 +16,12 @@
         update tb_user
         set userName=#{userName}, userPassword=#{userPassword}, userLoginIp=#{userLoginIp},
             userEmail=#{userEmail}, userLoginTime=#{userLoginTime}
-        where userId=${userId};
+        where userId=${userId}
     </update>
 
     <select id="queryUserInfoByName" resultType="com.ylf.pojo.User">
         select *
-        from tb_user where userName=#{userName};
+        from tb_user where userName=#{userName}
     </select>
 
     <select id="checkRename" parameterType="String" resultType="int">
@@ -32,24 +32,30 @@
         select userId from tb_user where userEmail=#{userEmail}
     </select>
 
+    <select id="queryUserIpByName" resultType="com.ylf.pojo.UserIp">
+        select *
+        from tb_user_ip where userNameForIp=#{userName}
+    </select>
+
     <insert id="insertUser" parameterType="com.ylf.pojo.User">
         insert into tb_user (userName, userPassword, userEmail, userLoginIp, userType, userLoginTime)
         values (#{userName},#{userPassword},#{userEmail},#{userIp},'user',#{userLoginTime})
     </insert>
 
     <insert id="initUserInfo" parameterType="String">
-        insert into tb_user_info (userName, userNickName, userGender, userAge, userBirthday, userSign, userFaceUuid)
-        values (#{userName},'','','','','','default.png')
+        insert into tb_user_info (userName, userFaceUuid,userSign)
+        values (#{userName},'default.png','这个人很懒，还什么都没有写')
     </insert>
-    
-    <insert id="initUserIndex" parameterType="String">
-        insert into tb_user_index (indexUserName, indexLike, indexVisit, indexMessage)
-        values (#{userName},0,0,0)
-    </insert>
+
 
     <insert id="insertUserIp">
         insert into tb_user_ip (userNameForIp, userIp)
         values (#{userNameForIp},#{userIp})
+    </insert>
+
+    <insert id="insertUserIndex">
+        insert into tb_user_index (indexUserName, indexVisit)
+        values (#{userName},0);
     </insert>
 
 </mapper>

@@ -755,149 +755,350 @@
       <ObjectGrants>ALL PRIVILEGES!
 </ObjectGrants>
     </user>
-    <table id="237" parent="9" name="tb_test"/>
-    <table id="238" parent="9" name="tb_user"/>
-    <table id="239" parent="9" name="tb_user_index"/>
-    <table id="240" parent="9" name="tb_user_info"/>
-    <table id="241" parent="9" name="tb_user_ip"/>
-    <column id="242" parent="237" name="id">
+    <table id="237" parent="9" name="tb_concern"/>
+    <table id="238" parent="9" name="tb_dit"/>
+    <table id="239" parent="9" name="tb_dit_comment"/>
+    <table id="240" parent="9" name="tb_dit_img"/>
+    <table id="241" parent="9" name="tb_dit_praise"/>
+    <table id="242" parent="9" name="tb_search"/>
+    <table id="243" parent="9" name="tb_test"/>
+    <table id="244" parent="9" name="tb_text"/>
+    <table id="245" parent="9" name="tb_user"/>
+    <table id="246" parent="9" name="tb_user_collection"/>
+    <table id="247" parent="9" name="tb_user_index"/>
+    <table id="248" parent="9" name="tb_user_info"/>
+    <table id="249" parent="9" name="tb_user_ip"/>
+    <column id="250" parent="237" name="concernId">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>null</SequenceIdentity>
+    </column>
+    <column id="251" parent="237" name="concernUserName">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <column id="252" parent="237" name="concernByUserName">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <key id="253" parent="237" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>concernId</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="254" parent="238" name="ditId">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>null</SequenceIdentity>
+    </column>
+    <column id="255" parent="238" name="ditUserName">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <column id="256" parent="238" name="ditMessage">
+      <Position>3</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="257" parent="238" name="ditLike">
+      <Position>4</Position>
+      <DataType>int(255)|0s</DataType>
+    </column>
+    <column id="258" parent="238" name="ditDateTime">
+      <Position>5</Position>
+      <DataType>datetime|0s</DataType>
+    </column>
+    <column id="259" parent="238" name="ditUuid">
+      <Position>6</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <key id="260" parent="238" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ditId</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="261" parent="239" name="ditCommentId">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>null</SequenceIdentity>
+    </column>
+    <column id="262" parent="239" name="ditCommentUserName">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <column id="263" parent="239" name="ditCommentMessage">
+      <Position>3</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="264" parent="239" name="ditUuid">
+      <Position>4</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <column id="265" parent="239" name="ditDateTime">
+      <Position>5</Position>
+      <DataType>datetime|0s</DataType>
+      <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
+    </column>
+    <column id="266" parent="239" name="ditAttention">
+      <Position>6</Position>
+      <DataType>int(2)|0s</DataType>
+    </column>
+    <key id="267" parent="239" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ditCommentId</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="268" parent="240" name="ditImgId">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>null</SequenceIdentity>
+    </column>
+    <column id="269" parent="240" name="ditUserName">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <column id="270" parent="240" name="ditImgUuid">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <column id="271" parent="240" name="ditUuid">
+      <Position>4</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <key id="272" parent="240" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ditImgId</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="273" parent="241" name="ditPraiseId">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>null</SequenceIdentity>
+    </column>
+    <column id="274" parent="241" name="ditPraiseUserName">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <column id="275" parent="241" name="ditUuid">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <column id="276" parent="241" name="ditAttention">
+      <Position>4</Position>
+      <DataType>int(2)|0s</DataType>
+    </column>
+    <key id="277" parent="241" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ditPraiseId</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="278" parent="242" name="searchId">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>null</SequenceIdentity>
+    </column>
+    <column id="279" parent="242" name="searchWord">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <column id="280" parent="242" name="searchFrequency">
+      <Position>3</Position>
+      <DataType>int(11)|0s</DataType>
+    </column>
+    <key id="281" parent="242" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>searchId</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="282" parent="243" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="243" parent="237" name="name">
+    <column id="283" parent="243" name="name">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="244" parent="237" name="gender">
+    <column id="284" parent="243" name="gender">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
     </column>
-    <column id="245" parent="237" name="age">
+    <column id="285" parent="243" name="age">
       <Position>4</Position>
       <DataType>int(11)|0s</DataType>
     </column>
-    <key id="246" parent="237" name="PRIMARY">
+    <key id="286" parent="243" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="247" parent="238" name="userId">
+    <column id="287" parent="244" name="textId">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="248" parent="238" name="userName">
+    <column id="288" parent="244" name="textUserName">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="249" parent="238" name="userPassword">
+    <column id="289" parent="244" name="textLike">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="250" parent="238" name="userEmail">
+    <column id="290" parent="244" name="textUuid">
       <Position>4</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="251" parent="238" name="userLoginIp">
+    <column id="291" parent="244" name="textData">
+      <Position>5</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <key id="292" parent="244" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>textId</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="293" parent="245" name="userId">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>null</SequenceIdentity>
+    </column>
+    <column id="294" parent="245" name="userName">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <column id="295" parent="245" name="userPassword">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <column id="296" parent="245" name="userEmail">
+      <Position>4</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <column id="297" parent="245" name="userLoginIp">
       <Position>5</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="252" parent="238" name="userType">
+    <column id="298" parent="245" name="userType">
       <Position>6</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="253" parent="238" name="userLoginTime">
+    <column id="299" parent="245" name="userLoginTime">
       <Position>7</Position>
       <DataType>datetime|0s</DataType>
     </column>
-    <key id="254" parent="238" name="PRIMARY">
+    <key id="300" parent="245" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>userId</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="255" parent="239" name="indexId">
+    <column id="301" parent="246" name="collectionId">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="256" parent="239" name="indexUserName">
+    <column id="302" parent="246" name="collectionUserName">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="257" parent="239" name="indexLike">
+    <column id="303" parent="246" name="collectionUuid">
       <Position>3</Position>
-      <DataType>int(255)|0s</DataType>
+      <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="258" parent="239" name="indexVisit">
+    <column id="304" parent="246" name="collectionType">
       <Position>4</Position>
-      <DataType>int(255)|0s</DataType>
+      <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="259" parent="239" name="indexMessage">
-      <Position>5</Position>
-      <DataType>int(255)|0s</DataType>
+    <key id="305" parent="246" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>collectionId</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="306" parent="247" name="indexId">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <key id="260" parent="239" name="PRIMARY">
+    <column id="307" parent="247" name="indexUserName">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <column id="308" parent="247" name="indexVisit">
+      <Position>3</Position>
+      <DataType>int(11)|0s</DataType>
+    </column>
+    <column id="309" parent="247" name="indexBGIUuid">
+      <Position>4</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <key id="310" parent="247" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>indexId</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="261" parent="240" name="userId">
+    <column id="311" parent="248" name="userId">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="262" parent="240" name="userName">
+    <column id="312" parent="248" name="userName">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="263" parent="240" name="userNickName">
+    <column id="313" parent="248" name="userNickName">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="264" parent="240" name="userGender">
+    <column id="314" parent="248" name="userGender">
       <Position>4</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="265" parent="240" name="userAge">
+    <column id="315" parent="248" name="userAge">
       <Position>5</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="266" parent="240" name="userBirthday">
+    <column id="316" parent="248" name="userBirthday">
       <Position>6</Position>
       <DataType>date|0s</DataType>
     </column>
-    <column id="267" parent="240" name="userSign">
+    <column id="317" parent="248" name="userSign">
       <Position>7</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="268" parent="240" name="userFaceUuid">
+    <column id="318" parent="248" name="userFaceUuid">
       <Position>8</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <key id="269" parent="240" name="PRIMARY">
+    <key id="319" parent="248" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>userId</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="270" parent="241" name="id">
+    <column id="320" parent="249" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="271" parent="241" name="userNameForIp">
+    <column id="321" parent="249" name="userNameForIp">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="272" parent="241" name="userIp">
+    <column id="322" parent="249" name="userIp">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <key id="273" parent="241" name="PRIMARY">
+    <key id="323" parent="249" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>

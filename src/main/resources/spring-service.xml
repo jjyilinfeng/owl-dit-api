@@ -15,6 +15,10 @@
         <property name="indexMapper" ref="indexMapper"/>
     </bean>
 
+    <bean id="ditServiceImpl" class="com.ylf.service.DitServiceImpl">
+        <property name="ditMapper" ref="ditMapper"/>
+    </bean>
+
 
 
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

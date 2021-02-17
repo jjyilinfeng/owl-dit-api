@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/dtd//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ylf.dao.DitMapper">
+    <insert id="insertDit" parameterType="com.ylf.pojo.Dit">
+        insert into tb_dit (ditUserName, ditMessage, ditLike, ditUuid,ditDateTime)
+        values (#{ditUserName},#{ditMessage},0,#{ditUuid},#{ditDateTime})
+    </insert>
+
+    <insert id="insertDitImg">
+        <foreach collection="ditImgUuid" item="item">
+        insert into tb_dit_img (ditImgUuid, ditUuid)
+        values (#{item},#{ditUuid});
+        </foreach>
+    </insert>
+
+    <insert id="insertDitPraise">
+        insert into tb_dit_praise (ditPraiseUserName, ditUuid, ditAttention)
+        values (#{ditPraiseUserName},#{ditUuid},1);
+    </insert>
+
+    <insert id="insertDitComment">
+        insert into tb_dit_comment (ditCommentUserName, ditCommentMessage, ditUuid)
+        values (#{ditCommentUserName},#{ditCommentMessage},#{ditUuid})
+    </insert>
+
+
+
+    <select id="queryAllDit" resultType="java.util.Map">
+        select * from tb_dit
+        join tb_user_info on userName=ditUserName
+        where ditUserName in
+              (select concernByUserName from tb_concern where concernUserName=#{userName})
+           or ditUserName=#{userName}
+        order by ditDateTime desc
+        limit 0,#{limit}
+    </select>
+
+    <select id="querySelfDit" resultType="java.util.Map">
+        select * from tb_dit
+        join tb_user_info on userName=ditUserName
+        where userName=#{userName}
+        order by ditDateTime desc
+        limit 0,#{limit}
+    </select>
+
+    <select id="queryAllDitCount" resultType="int">
+        select count(*) from tb_dit
+                          join tb_user_info on userName=ditUserName
+        where ditUserName in
+              (select concernByUserName from tb_concern where concernUserName=#{userName})
+           or ditUserName=#{userName}
+    </select>
+
+    <select id="querySelfDitCount" resultType="int">
+        select * from tb_dit
+                join tb_user_info on userName=ditUserName
+                where userName=#{userName}
+    </select>
+
+
+    <select id="queryDitImgByDitUuid" resultType="java.util.Map">
+        select ditImgUuid from tb_dit_img where ditUuid=#{ditUuid}
+    </select>
+
+    <select id="queryDitPraiseByUuid" resultType="java.util.Map">
+        select ditPraiseUserName,userNickName from tb_dit_praise
+            join tb_user_info on tb_dit_praise.ditPraiseUserName=tb_user_info.userName
+        where ditUuid=#{ditUuid}
+    </select>
+
+    <select id="queryDitCommentByUuid" resultType="java.util.Map">
+        select ditCommentId,ditCommentUserName,userNickName,ditCommentMessage, ditDateTime,userFaceUuid from tb_dit_comment
+            join tb_user_info on tb_dit_comment.ditCommentUserName=tb_user_info.userName
+        where ditUuid=#{ditUuid}
+    </select>
+
+    <select id="queryDitPraiseUnNoticeByUserName" resultType="java.util.Map">
+        select ditPraiseUserName,substring(ditMessage,0,10) from tb_dit_praise
+                join tb_dit td on tb_dit_praise.ditUuid = td.ditUuid
+        where td.ditUserName=#{userName} and ditPraiseUserName!=#{userName}
+    </select>
+
+    <select id="queryDitCommentUnNoticeByUserName" resultType="java.util.Map">
+        select ditCommentUserName, ditCommentMessage from tb_dit_comment
+                join tb_dit td on tb_dit_comment.ditUuid = td.ditUuid
+        where td.ditUserName=#{userName} and ditCommentUserName!=#{userName}
+    </select>
+
+    <delete id="deleteDitPraise">
+        delete from tb_dit_praise where ditUuid=#{ditUuid} and ditPraiseUserName=#{ditPraiseUserName}
+    </delete>
+
+    <delete id="deleteDitComment">
+        delete from tb_dit_comment where ditCommentUserName=#{ditCommentUserName} and ditUuid=#{ditUuid}
+    </delete>
+
+    <delete id="deleteDitCommentById">
+        delete from tb_dit_comment where ditCommentId=#{ditCommentId}
+    </delete>
+
+    <delete id="deleteDitByUuid" parameterType="String">
+        delete from tb_dit where  ditUuid=#{ditUuid};
+        delete from tb_dit_comment where ditUuid=#{ditUuid};
+        delete from tb_dit_img where ditUuid=#{ditUuid};
+        delete from tb_dit_praise where ditUuid=#{ditUuid};
+    </delete>
+</mapper>

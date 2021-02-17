@@ -1,6 +1,7 @@
 package com.ylf.dao;
 
 import com.ylf.pojo.User;
+import com.ylf.pojo.UserIp;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -66,4 +67,17 @@ public interface BookMapper {
      * @param userIp IP
      */
     void insertUserIp(@Param("userNameForIp")String userNameForIp, @Param("userIp")String userIp);
+
+    /**
+     * 初始用户主页
+     * @param userName 用户名
+     */
+    void insertUserIndex(@Param("userName")String userName);
+
+    /**
+     * 根据用户名返还用户IP
+     * @param userName 用户名
+     * @return 用户IP
+     */
+    List<UserIp> queryUserIpByName(@Param("userName")String userName);
 }

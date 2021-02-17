@@ -1,6 +1,7 @@
 package com.ylf.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.ylf.pojo.UserIp;
 import com.ylf.util.ReturnData;
 import com.ylf.util.StatusCode;
 import com.ylf.pojo.User;
@@ -120,6 +121,12 @@ public class UserController {
         }
     }
 
+    @RequestMapping("/queryUserIp")
+    public Object queryUserIp(@RequestParam Map<String, Object> map){
+        List<UserIp> userIps = bookService.queryUserIpByName(map.get("userName").toString());
+        return JSONObject.toJSON(new ReturnData(StatusCode.REQUEST_SUCCESS,userIps,"用户IP查询成功"));
+    }
+
     @RequestMapping("/sendCheckCode")
     public void sendCheckCode(@RequestParam Map<String, Object> map){
         if(map.get("userEmail") == null){
@@ -145,6 +152,7 @@ public class UserController {
         if(flag > 0){
             bookService.insertUserIp(map.get("userName").toString(),localIp);
             bookService.initUserInfo(map.get("userName").toString());
+            bookService.insertUserIndex(map.get("userName").toString());
             return  JSONObject.toJSON(new ReturnData(StatusCode.REQUEST_SUCCESS,"注册成功"));
         }
         else{
